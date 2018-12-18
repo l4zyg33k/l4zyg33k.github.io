@@ -1,4 +1,4 @@
 ---
-layout: home
-author_profile: true
+layout: post
+title: Blogging Like a Hacker
 ---
