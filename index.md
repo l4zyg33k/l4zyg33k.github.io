@@ -1,6 +1,6 @@
 ---
 title: L4zyG33k Stuff
-layout: default
+layout: home
 ---
 <ul>
   {% for post in site.posts %}
