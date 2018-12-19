@@ -1,6 +1,6 @@
 title: L4zyG33k Stuff
 description: Stay Hungry. Stay Foolish.
-theme: jekyll-theme-primer
+theme: minima
 navigation: True
 plugins:
 - jekyll-feed
