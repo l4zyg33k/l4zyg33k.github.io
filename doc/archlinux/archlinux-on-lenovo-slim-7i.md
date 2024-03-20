@@ -11,7 +11,7 @@ sudo pacman -S sof-firmware
 sudo pacman -S libva-intel-driver libva-utils intel-media-driver intel-gpu-tools
 ```
 
-### 부팅 스플래시
+## 부팅 스플래시
 [Plymouth](https://wiki.archlinux.org/title/Plymouth) 문서를 참고 합니다.
 ```bash
 sudo pacman -S plymouth
