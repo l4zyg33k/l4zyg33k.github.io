@@ -1,6 +1,6 @@
 # Lenovo Slim 7i에서 아치리눅스 사용하기
 
-[Laptop/Lenovo] (https://wiki.archlinux.org/title/Laptop/Lenovo) 문서를 참고하여 intel i7 1260P의 Lenovo Slim 7i에 아치리눅스를 구성한 기록 입니다.
+[Laptop/Lenovo](https://wiki.archlinux.org/title/Laptop/Lenovo) 문서를 참고하여 intel i7 1260P의 Lenovo Slim 7i에 아치리눅스를 구성한 기록 입니다.
 
 ## 오디오 드라이버
 ```bash
@@ -12,7 +12,7 @@ sudo pacman -S libva-intel-driver libva-utils intel-media-driver intel-gpu-tools
 ```
 
 ### 부팅 스플래시
-[Plymouth] (https://wiki.archlinux.org/title/Plymouth) 문서를 참고 합니다.
+[Plymouth](https://wiki.archlinux.org/title/Plymouth) 문서를 참고 합니다.
 ```bash
 sudo pacman -S plymouth
 
