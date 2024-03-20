@@ -1,14 +1,16 @@
-.. Example documentation master file, created by
-   sphinx-quickstart on Sat Sep 23 20:35:12 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+L4zyG33k Stuff
+==============
 
-Welcome to Example's documentation!
-===================================
-
+Arch Linux
+----------
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
 
-   some-feature.md
-   another-feature.md
+   archlinux/archlinux-on-lenovo-slim-7i.md
+
+Kubernetes
+----------
+.. toctree::
+   :maxdepth: 1
+
+   kubernetes/kind-on-podman.md
