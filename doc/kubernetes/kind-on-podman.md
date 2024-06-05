@@ -19,6 +19,7 @@ Delegate=yes
 systemd를 리로드 합니다. 그리고, 사용자 계정으로 podman 소켓을 활성화 합니다.
 ```shell
 sudo systemctl daemon-reload
+systemctl --user enable podman.socket
 systemctl --user start podman.socket
 
 ```

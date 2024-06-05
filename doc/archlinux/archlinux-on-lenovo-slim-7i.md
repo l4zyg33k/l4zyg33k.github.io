@@ -83,3 +83,16 @@ OpenCV의 WARN 에러가 신경 쓰이면 아래와 같이 환경 변수를 .zsh
 ```shell
 export OPENCV_LOG_LEVEL=ERROR
 ```
+
+## 외장 모니터 밝기
+### 커널 모듈 설치
+ddcci-driver-linux-dkms-git AUR 패키지를 설지 합니다.
+/etc/mkinitcpio.conf 파일에서 MODULES=(ddcci ddcci_backlight)를 추가 합니다.
+```
+echo 'ddcci 0x37' | sudo tee /sys/bus/i2c/devices/i2c-11/new_device
+ddcutil setvcp 10 50 -b 11
+
+[  449.312601] ddcci-backlight ddcci11: registered luminance as backlight device ddcci11
+[  449.906083] i2c i2c-11: new_device: Instantiated device ddcci at 0x37
+
+```
