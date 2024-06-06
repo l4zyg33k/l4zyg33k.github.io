@@ -15,3 +15,4 @@ Kubernetes
    :maxdepth: 1
 
    kubernetes/kind-on-podman.md
+   cks/cluster.md
