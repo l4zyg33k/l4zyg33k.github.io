@@ -19,7 +19,7 @@ device_path = /dev/video0
 ## 변경 하기
 랩탑과 데스크탑의 전환 여부를 클램쉘 모드로 확인하여 자동화 합니다. /etc/systemd/system 에 howdy.service 로 서비스를 만듭니다.
 ```
-Unit]                                                                                                                                                                             
+[Unit]                                                                                                                                                                             
 Description=Howdy Service                                                                                                                                                          
 After=graphical.target                                                                                                                                                             
 StartLimitBurst=0                                                                                                                                                                  
@@ -31,8 +31,7 @@ Restart=on-failure
 RemainAfterExit=true                                                                                                                                                               
                                                                                                                                                                                    
 [Install]                                                                                                                                                                          
-WantedBy=graphical.target                                                                                                                                                          
-~                              
+WantedBy=graphical.target                                                                                                                                                                                        
 ```
 /usr/local/bin 에 howdy.sh 를 만듭니다. howdy.service 에서 열리고 닫힘에 따라 변경해 줍니다.
 ```shell
