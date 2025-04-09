@@ -25,7 +25,7 @@ systemctl --user start podman.socket
 ```
 
 ## 클러스터 만들기
-처음 실행 할 때는 systemd-run 으로 실행 한다.
+처음 실행 할 때는 systemd-run 으로 실행 합니다.
 ```shell
 system-run --user kind create cluster
 ```
