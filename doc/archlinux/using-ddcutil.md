@@ -35,8 +35,10 @@ ddcutil -l 'WCS Display' -n 'demoset-1' setvcp 10 100
 ```
 
 ## systemd 서비스 등록
-display-manager.service 과 graphical.target 가 실행된 이후에 ddcutil이 실행이 되도록 합니다. /etc/systemd/system 폴더에 ddcutil.service 라는 이름으로 만듭니다.
-```
+display-manager.service 과 graphical.target 가 실행된 이후에 ddcutil이 실행이 되도록 합니다.
+
+/etc/systemd/system/ddcutil.service
+```properties
 [Unit]
 Description=ddcutil service 
 After=display-manager.service graphical.target
@@ -51,8 +53,8 @@ RemainAfterExit=true
 [Install]
 WantedBy=graphical.target
 ```
-/usr/local/bin 에 ddcutil.sh 을 만듭니다.
 
+/usr/local/bin/ddcutil.sh
 ```shell
 #!/bin/zsh
 

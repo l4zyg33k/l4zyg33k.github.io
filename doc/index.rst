@@ -11,6 +11,7 @@ Arch Linux
    archlinux/fcitx5-hangul.md
    archlinux/using-ddcutil.md
    archlinux/using-howdy.md
+   ᅟarchlinux/using-clamshell-laptop.md
 
 Kubernetes
 ----------
