@@ -12,6 +12,7 @@ Arch Linux
    archlinux/using-ddcutil.md
    archlinux/using-howdy.md
    archlinux/trouble-shootings.md
+   archlinux/settings-ts9020.md
 
 Kubernetes
 ----------
