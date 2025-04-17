@@ -1,7 +1,7 @@
 # 캐논 TS9020 잉크젯 프린터 설정하기
 
 ## 프린터
-### cups 데몬 설지
+### cups 데몬 설치
 ```shell
 pacin cups
 sudo systemctl enable cups.service
