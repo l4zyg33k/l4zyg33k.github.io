@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>개발을 위한 툴체인 구성 &mdash; LazyG33k Stuff 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="canonical" href="https://www.miralove.pe.kr/toolchain/toolchain-on-kind.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LazyG33k Stuff
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../archlinux/archlinux-on-lenovo-slim-7i.html">레노보 슬림 7i에서 아치리눅스 사용하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../archlinux/customizing-by-l4zyg33k.html">나만의 아치리눅스 취향</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../archlinux/fcitx5-hangul.html">fcitx5 한글 입력</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../archlinux/using-ddcutil.html">ddcutil을 이용한 포터블 모니터 밝기 제어</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../archlinux/using-howdy.html">Howdy 로 인증하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../archlinux/trouble-shootings.html">트러블 슈팅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../archlinux/settings-ts9020.html">캐논 TS9020 잉크젯 프린터 설정하기</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kubernetes/kind-on-podman.html">Rootless Podman으로 kind 사용하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cks/cluster.html">멀티패스로 CKS 실습 환경 만들기</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LazyG33k Stuff</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">개발을 위한 툴체인 구성</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/toolchain/toolchain-on-kind.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>개발을 위한 툴체인 구성<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>kompose를 이용하여 docker-compose.yaml 파일을 이용하여 쿠버네티스 자원을 만들어 사용합니다.</p>
+<section id="id2">
+<h2>클러스터 생성<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<section id="kind">
+<h3>kind 클러스터<a class="headerlink" href="#kind" title="Link to this heading"></a></h3>
+<p>gitea의 호스트를 tls를 사용하지 않도록 설정 합니다. 그리고, 호스트의 80, 443 포트를 매핑 합니다.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cluster</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kind.x-k8s.io/v1alpha4</span>
+<span class="nt">containerdConfigPatches</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">|-</span>
+<span class="w">  </span><span class="no">[plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors.&quot;gitea.192.168.1.129.nip.io&quot;]</span>
+<span class="w">    </span><span class="no">endpoint = [&quot;http://gitea.192.168.1.129.nip.io&quot;]</span>
+<span class="w">  </span><span class="no">[plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.configs]</span>
+<span class="w">    </span><span class="no">[plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.configs.&quot;gitea.192.168.1.129.nip.io&quot;.tls]</span>
+<span class="w">      </span><span class="no">insecure_skip_verify = true</span>
+<span class="nt">nodes</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">control-plane</span>
+<span class="w">  </span><span class="nt">kubeadmConfigPatches</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">kind: InitConfiguration</span>
+<span class="w">    </span><span class="no">nodeRegistration:</span>
+<span class="w">      </span><span class="no">kubeletExtraArgs:</span>
+<span class="w">        </span><span class="no">node-labels: &quot;ingress-ready=true&quot;</span>
+<span class="w">  </span><span class="nt">extraPortMappings</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">    </span><span class="nt">hostPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">443</span>
+<span class="w">    </span><span class="nt">hostPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">443</span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span><span class="w"> </span>
+</pre></div>
+</div>
+<p>새로운 클러스터를 생성 합니다.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>kind<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>-f<span class="w"> </span>cluster.yaml<span class="w"> </span>--name<span class="w"> </span>kind-1
+</pre></div>
+</div>
+</section>
+<section id="sysctl-d">
+<h3>sysctl.d 설정<a class="headerlink" href="#sysctl-d" title="Link to this heading"></a></h3>
+<p>/etc/sysctl.d/99-sysctl.conf 를 생성 합니다.</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">fs.inotify.max_user_watches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">524288</span>
+<span class="na">fs.inotify.max_user_instances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">512</span>
+<span class="na">net.ipv4.ip_unprivileged_port_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">80 </span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id3">
+<h2>인그레스<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+kubectl<span class="w"> </span>patch<span class="w"> </span>cm<span class="w"> </span>-n<span class="w"> </span>ingress-nginx<span class="w"> </span>ingress-nginx-controller<span class="w"> </span>--type<span class="w"> </span>json<span class="w"> </span>--patch<span class="w"> </span><span class="s1">&#39;[{ &quot;op&quot;: &quot;add&quot;, &quot;path&quot;: &quot;/data/worker-processes&quot;, &quot;value&quot;: &quot;1&quot; }]&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h2>도커 컴포즈<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.9&#39;</span>
+
+<span class="nt">services</span><span class="p">:</span>
+
+<span class="w">  </span><span class="nt">postgres</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pg-data:/var/lib/postgresql/data</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POSTGRES_PASSWORD=postgres</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TZ=Asia/Seoul</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5432</span>
+<span class="w">    </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">kompose.service.type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">headless</span>
+<span class="w">      </span><span class="nt">kompose.controller.type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">statefulset</span><span class="w">     </span>
+<span class="w">      </span><span class="nt">kompose.volume.size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+<span class="w">      </span><span class="nt">kompose.volume.storage-class-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
+<span class="w">      </span><span class="nt">kompose.volume.type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">persistentVolumeClaim</span>
+
+<span class="w">  </span><span class="nt">adminer</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adminer</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
+<span class="w">    </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">kompose.service.expose</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;adminer.192.168.1.129.nip.io&quot;</span>
+<span class="w">      </span><span class="nt">kompose.service.expose.ingress-class-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+
+<span class="w">  </span><span class="nt">redmine</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redmine</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rm-files:/usr/src/redmine/files</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rm-plugins:/usr/src/redmine/plugins</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rm-themes:/usr/src/redmine/public/themes</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REDMINE_DB_POSTGRES=postgres</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REDMINE_DB_USERNAME=redmine</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REDMINE_DB_PASSWORD=redmine</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REDMINE_DB_DATABASE=redmine</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REDMINE_PLUGINS_MIGRATE=true</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TZ=Asia/Seoul</span>
+<span class="w">    </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">kompose.service.expose</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;redmine.192.168.1.129.nip.io&quot;</span>
+<span class="w">      </span><span class="nt">kompose.service.expose.ingress-class-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">      </span><span class="nt">kompose.volume.size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+<span class="w">      </span><span class="nt">kompose.volume.storage-class-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
+<span class="w">      </span><span class="nt">kompose.volume.type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">persistentVolumeClaim</span>
+
+<span class="w">  </span><span class="nt">gitea</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gitea/gitea</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USER_UID=1000</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USER_GID=1000</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GITEA__database__DB_TYPE=postgres</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GITEA__database__HOST=postgres:5432</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GITEA__database__NAME=gitea</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GITEA__database__USER=gitea</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GITEA__database__PASSWD=gitea</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TZ=Asia/Seoul</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gt-data:/data</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22</span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">    </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">kompose.service.expose</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;gitea.192.168.1.129.nip.io&quot;</span>
+<span class="w">      </span><span class="nt">kompose.service.expose.ingress-class-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">      </span><span class="nt">kompose.volume.size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+<span class="w">      </span><span class="nt">kompose.volume.storage-class-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
+<span class="w">      </span><span class="nt">kompose.volume.type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">persistentVolumeClaim</span>
+
+<span class="w">  </span><span class="nt">jenkins</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jenkins/jenkins</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TZ=Asia/Seoul</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50000</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jk-home:/var/jenkins_home</span>
+<span class="w">    </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">kompose.service.expose</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;jenkins.192.168.1.129.nip.io&quot;</span>
+<span class="w">      </span><span class="nt">kompose.service.expose.ingress-class-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nginx</span>
+<span class="w">      </span><span class="nt">kompose.volume.size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Gi</span>
+<span class="w">      </span><span class="nt">kompose.volume.storage-class-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
+<span class="w">      </span><span class="nt">kompose.volume.type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">persistentVolumeClaim</span>
+
+<span class="nt">volumes</span><span class="p">:</span>
+
+<span class="w">  </span><span class="nt">pg-data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">rm-files</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">rm-plugins</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">rm-themes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">gt-data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">jk-home</span><span class="p">:</span>
+</pre></div>
+</div>
+<section id="kompose">
+<h3>kompose 변환<a class="headerlink" href="#kompose" title="Link to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>kompose<span class="w"> </span>convert<span class="w"> </span>-f<span class="w"> </span>docker-compose.yaml
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id5">
+<h2>데이터베이스<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<section id="postgresql">
+<h3>PostgreSQL 설치<a class="headerlink" href="#postgresql" title="Link to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>pg-data-persistentvolumeclaim.yaml<span class="w"> </span>-f<span class="w"> </span>postgres-deployment.yaml<span class="w"> </span>-f<span class="w"> </span>postgres-deployment.yaml<span class="w"> </span>-f<span class="w"> </span>postgres-service.yaml
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>레드마인 데이터베이스 생성<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">redmine</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="s1">&#39;redmine&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">redmine</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">redmine</span><span class="w"> </span><span class="n">lc_collate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;C&#39;</span><span class="w"> </span><span class="k">template</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">template0</span><span class="p">;</span><span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="gitea">
+<h3>Gitea 데이터베이스 생성<a class="headerlink" href="#gitea" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="n">gitea</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="s1">&#39;gitea&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">gitea</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gitea</span><span class="w"> </span><span class="n">lc_collate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;C&#39;</span><span class="w"> </span><span class="k">template</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">template0</span><span class="p">;</span><span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="adminer">
+<h3>Adminer 설치<a class="headerlink" href="#adminer" title="Link to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>adminer-deployment.yaml<span class="w"> </span>-f<span class="w"> </span>adminer-service.yaml<span class="w"> </span>-f<span class="w"> </span>adminer-ingress.yaml
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id7">
+<h2>깃 리파지토리<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<section id="id8">
+<h3>Gitea 설치<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>gt-data-persistentvolumeclaim.yaml<span class="w"> </span>-f<span class="w"> </span>gitea-deployment.yaml<span class="w"> </span>-f<span class="w"> </span>gitea-service.yaml<span class="w"> </span>-f<span class="w"> </span>gitea-ingress.yaml
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id9">
+<h2>프라이빗 리파지토리 설정<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<p>/etc/containers/registries.conf.d 에 nip.io.conf로 추가 합니다.</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">[[registry]]</span>
+<span class="na">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;*.nip.io&#39;</span>
+<span class="na">insecure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>docker-registry<span class="w"> </span>regcred<span class="w"> </span>--docker-server<span class="o">=</span>&lt;your-registry-server&gt;<span class="w"> </span>--docker-username<span class="o">=</span>&lt;your-name&gt;<span class="w"> </span>--docker-password<span class="o">=</span>&lt;your-pword&gt;<span class="w"> </span>--docker-email<span class="o">=</span>&lt;your-email&gt;
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, L4zyG33k.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
