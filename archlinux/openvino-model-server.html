@@ -1,0 +1,138 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenVINO 모델 서버 설치 &mdash; LazyG33k Stuff 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="canonical" href="https://www.miralove.pe.kr/archlinux/openvino-model-server.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LazyG33k Stuff
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="archlinux-on-lenovo-slim-7i.html">레노보 슬림 7i에서 아치리눅스 사용하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customizing-by-l4zyg33k.html">나만의 아치리눅스 취향</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fcitx5-hangul.html">fcitx5 한글 입력</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-ddcutil.html">ddcutil을 이용한 포터블 모니터 밝기 제어</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-howdy.html">Howdy 로 인증하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trouble-shootings.html">트러블 슈팅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings-ts9020.html">캐논 TS9020 잉크젯 프린터 설정하기</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kubernetes/kind-on-podman.html">Rootless Podman으로 kind 사용하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cks/cluster.html">멀티패스로 CKS 실습 환경 만들기</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LazyG33k Stuff</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">OpenVINO 모델 서버 설치</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/archlinux/openvino-model-server.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="openvino">
+<h1>OpenVINO 모델 서버 설치<a class="headerlink" href="#openvino" title="Link to this heading"></a></h1>
+<section id="id1">
+<h2>인텔 드라이버 설치<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pacman<span class="w"> </span>-Syu<span class="w"> </span>intel-compute-runtime
+yay<span class="w"> </span>-Syu<span class="w"> </span>intel-npu-driver
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>모델 설치<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyenv<span class="w"> </span>install<span class="w"> </span><span class="m">3</span>.12.11
+pipenv<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.12.11
+</pre></div>
+</div>
+<p>https://docs.openvino.ai/2025/model-server/ovms_demos_code_completion_vsc.html</p>
+</section>
+<section id="id3">
+<h2>모델 서버 실행<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--rm<span class="w"> </span>--device<span class="w"> </span>/dev/accel<span class="w"> </span>--group-add<span class="o">=</span><span class="k">$(</span>stat<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;%g&quot;</span><span class="w"> </span>/dev/dri/render*<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="k">)</span><span class="w"> </span>-u<span class="w"> </span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span>:<span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/:/workspace/<span class="w"> </span>openvino/model_server:2025.2-gpu<span class="w"> </span>--rest_port<span class="w"> </span><span class="m">8000</span><span class="w"> </span>--config_path<span class="w"> </span>/workspace/models/config_all.json
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, L4zyG33k.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

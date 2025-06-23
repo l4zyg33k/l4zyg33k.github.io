@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>레노보 슬림 7i에서 아치리눅스 사용하기 &mdash; LazyG33k Stuff 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="canonical" href="https://www.miralove.pe.kr/archlinux/archlinux-on-lenovo-slim-7i.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="나만의 아치리눅스 취향" href="customizing-by-l4zyg33k.html" />
+    <link rel="prev" title="L4zyG33k Stuff" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LazyG33k Stuff
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">레노보 슬림 7i에서 아치리눅스 사용하기</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">커널 파라메터</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">오디오 드라이버</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">그래픽 드라이버</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">적외선 카메라</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-dlib">python-dlib 준비</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">리파지토리 추가</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">python-dlib 설치</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#howdy">howdy 설치</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">howdy 설정</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">사용자 인식</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sudo">sudo 설정</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gdm-password">gdm-password 설정</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#opencv">OpenCV 환경변수 설정</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">외장 모니터 밝기</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">커널 모듈 설치</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="customizing-by-l4zyg33k.html">나만의 아치리눅스 취향</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fcitx5-hangul.html">fcitx5 한글 입력</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-ddcutil.html">ddcutil을 이용한 포터블 모니터 밝기 제어</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-howdy.html">Howdy 로 인증하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trouble-shootings.html">트러블 슈팅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings-ts9020.html">캐논 TS9020 잉크젯 프린터 설정하기</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kubernetes/kind-on-podman.html">Rootless Podman으로 kind 사용하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cks/cluster.html">멀티패스로 CKS 실습 환경 만들기</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LazyG33k Stuff</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">레노보 슬림 7i에서 아치리눅스 사용하기</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/archlinux/archlinux-on-lenovo-slim-7i.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="i">
+<h1>레노보 슬림 7i에서 아치리눅스 사용하기<a class="headerlink" href="#i" title="Link to this heading"></a></h1>
+<p>※ 25년 3월 메인보드 전원부 고장으로 아수스 랩탑으로 기기 변경 하였습니다.</p>
+<p>일평생 한방에 끝판왕을 가지 못하고 가난한 자의 시리즈를 거쳐가는 성향으로 맥북에어 M2를 가지지 못하고
+스스로 가난한 자의 맥북에어로 칭하며 이 모델을 구입 하였습니다.
+<a class="reference external" href="https://wiki.archlinux.org/title/Laptop/Lenovo">Laptop/Lenovo</a> 문서를 참고하여 인텔
+12세대 i7-1260P 프로세서의 레노보 슬림 7i에 아치리눅스를 구성한 기록 입니다. 대부분은 커널 모듈에서
+제공하는 드라이버가 자동적으로 적용되며 아웃-오브-박스 처럼 바로 사용 할 수 있습니다.</p>
+<section id="id1">
+<h2>커널 파라메터<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>전원 관리와 키보드에 대한 이슈 해결을 위해 커널 파라메터를 설정 합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ideapad_laptop</span><span class="o">.</span><span class="n">allow_v4_dytc</span><span class="o">=</span><span class="mi">1</span> <span class="n">i8042</span><span class="o">.</span><span class="n">direct</span> <span class="n">i8042</span><span class="o">.</span><span class="n">dumbkbd</span> 
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>오디오 드라이버<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>돌비 아트모스가 가능한 오디오 시스템이지만 과감하게 포기 합니다. 소리가 나온다는 것으로 만족 합니다.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>sof-firmware<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2>그래픽 드라이버<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>Intel® Iris® Xe Graphics로 게임 성능은 잘 모르지만 그저 하드웨어 가속만 되기를 바래봅니다.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>libva-intel-driver<span class="w"> </span>libva-utils<span class="w"> </span>intel-media-driver<span class="w"> </span>intel-gpu-tools
+</pre></div>
+</div>
+<p>파이어폭스에서 유튜브 컨텐츠 시청 시 하드웨어 가속기가 작동합니다.</p>
+</section>
+<section id="id4">
+<h2>적외선 카메라<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>윈도우의 헬로우와 같이 적외선 카메라로 사용자 인증을 할 수 있습니다. 적외선 카메라는 자동으로 인식 됩니다.</p>
+<section id="python-dlib">
+<h3>python-dlib 준비<a class="headerlink" href="#python-dlib" title="Link to this heading"></a></h3>
+<p>AUR에서는 관리가 되지 않고 있어서 <a class="reference external" href="https://wiki.archlinux.org/title/Unofficial_user_repositories#arch4edu">arch4edu</a>
+비공식 리파지토리를 추가 합니다.</p>
+<section id="id5">
+<h4>리파지토리 추가<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<p>/etc/pacman.conf에 아래 내용을 추가 합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[arch4edu]
+Server = https://mirrors.tuna.tsinghua.edu.cn/arch4edu/$arch
+</pre></div>
+</div>
+<p>GPG 서버로 부터 GPG 키를 가져옵니다.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pacman-key<span class="w"> </span>--recv-keys<span class="w"> </span>7931B6D628C8D3BA
+pacman-key<span class="w"> </span>--finger<span class="w"> </span>7931B6D628C8D3BA
+pacman-key<span class="w"> </span>--lsign-key<span class="w"> </span>7931B6D628C8D3BA
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h4>python-dlib 설치<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<p>python-dlib 패키지를 설치 합니다.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pacman<span class="w"> </span>-S<span class="w"> </span>python-dlib
+</pre></div>
+</div>
+</section>
+</section>
+<section id="howdy">
+<h3>howdy 설치<a class="headerlink" href="#howdy" title="Link to this heading"></a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>yay<span class="w"> </span>-S<span class="w"> </span>howdy
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>howdy 설정<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://wiki.archlinux.org/title/Howdy">Howdy</a> 문서를 참고하여 /lib/security/howdy/config.ini 수정 합니다.</p>
+<section id="id8">
+<h4>사용자 인식<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
+<p>현재 사용자를 인식 합니다.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>howdy<span class="w"> </span>add
+</pre></div>
+</div>
+</section>
+<section id="sudo">
+<h4>sudo 설정<a class="headerlink" href="#sudo" title="Link to this heading"></a></h4>
+<p>/etc/pam.d/sudo 파일 상위에 추가 합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auth</span> <span class="n">sufficient</span> <span class="n">pam_python</span><span class="o">.</span><span class="n">so</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">security</span><span class="o">/</span><span class="n">howdy</span><span class="o">/</span><span class="n">pam</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
+<section id="gdm-password">
+<h4>gdm-password 설정<a class="headerlink" href="#gdm-password" title="Link to this heading"></a></h4>
+<p>/etc/pam.d/gdm-password 파일 상위에 추가 합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auth</span> <span class="n">sufficient</span> <span class="n">pam_unix</span><span class="o">.</span><span class="n">so</span> <span class="n">try_first_pass</span> <span class="n">likeauth</span> <span class="n">nullok</span>
+<span class="n">auth</span> <span class="n">sufficient</span> <span class="n">pam_python</span><span class="o">.</span><span class="n">so</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">security</span><span class="o">/</span><span class="n">howdy</span><span class="o">/</span><span class="n">pam</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
+<section id="opencv">
+<h4>OpenCV 환경변수 설정<a class="headerlink" href="#opencv" title="Link to this heading"></a></h4>
+<p>OpenCV의 WARN 에러가 신경 쓰이면 아래와 같이 환경 변수를 .zshenv에 추가 합니다.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">OPENCV_LOG_LEVEL</span><span class="o">=</span>ERROR
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="id9">
+<h2>외장 모니터 밝기<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<section id="id10">
+<h3>커널 모듈 설치<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<p>ddcci-driver-linux-dkms-git AUR 패키지를 설지 합니다.
+/etc/mkinitcpio.conf 파일에서 MODULES=(ddcci ddcci_backlight)를 추가 합니다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s1">&#39;ddcci 0x37&#39;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">bus</span><span class="o">/</span><span class="n">i2c</span><span class="o">/</span><span class="n">devices</span><span class="o">/</span><span class="n">i2c</span><span class="o">-</span><span class="mi">11</span><span class="o">/</span><span class="n">new_device</span>
+<span class="n">ddcutil</span> <span class="n">setvcp</span> <span class="mi">10</span> <span class="mi">50</span> <span class="o">-</span><span class="n">b</span> <span class="mi">11</span>
+
+<span class="p">[</span>  <span class="mf">449.312601</span><span class="p">]</span> <span class="n">ddcci</span><span class="o">-</span><span class="n">backlight</span> <span class="n">ddcci11</span><span class="p">:</span> <span class="n">registered</span> <span class="n">luminance</span> <span class="k">as</span> <span class="n">backlight</span> <span class="n">device</span> <span class="n">ddcci11</span>
+<span class="p">[</span>  <span class="mf">449.906083</span><span class="p">]</span> <span class="n">i2c</span> <span class="n">i2c</span><span class="o">-</span><span class="mi">11</span><span class="p">:</span> <span class="n">new_device</span><span class="p">:</span> <span class="n">Instantiated</span> <span class="n">device</span> <span class="n">ddcci</span> <span class="n">at</span> <span class="mh">0x37</span>
+
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="L4zyG33k Stuff" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="customizing-by-l4zyg33k.html" class="btn btn-neutral float-right" title="나만의 아치리눅스 취향" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, L4zyG33k.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

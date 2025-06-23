@@ -1,0 +1,154 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>트러블 슈팅 &mdash; LazyG33k Stuff 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+    <link rel="canonical" href="https://www.miralove.pe.kr/archlinux/trouble-shootings.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="캐논 TS9020 잉크젯 프린터 설정하기" href="settings-ts9020.html" />
+    <link rel="prev" title="Howdy 로 인증하기" href="using-howdy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LazyG33k Stuff
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="archlinux-on-lenovo-slim-7i.html">레노보 슬림 7i에서 아치리눅스 사용하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customizing-by-l4zyg33k.html">나만의 아치리눅스 취향</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fcitx5-hangul.html">fcitx5 한글 입력</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-ddcutil.html">ddcutil을 이용한 포터블 모니터 밝기 제어</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using-howdy.html">Howdy 로 인증하기</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">트러블 슈팅</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">클램쉘 모드 사용하기</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">해결</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">그놈 키링 입력</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">해결</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="settings-ts9020.html">캐논 TS9020 잉크젯 프린터 설정하기</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kubernetes/kind-on-podman.html">Rootless Podman으로 kind 사용하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cks/cluster.html">멀티패스로 CKS 실습 환경 만들기</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LazyG33k Stuff</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">트러블 슈팅</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/archlinux/trouble-shootings.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>트러블 슈팅<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="id2">
+<h2>클램쉘 모드 사용하기<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>리눅스 부팅을 할 때 절전 모드로 진행이 된다.</p>
+<section id="id3">
+<h3>해결<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>systemd-logind 에서 랩탑이 닫히면 절전 모드로 진행 시키기 때문에 외부 전원이 연결되면 무시하도록 설정 한다.</p>
+<p>/etc/systemd/logind.conf</p>
+<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">HandleLidSwitchExternalPower</span><span class="o">=</span><span class="s">ignore</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2>그놈 키링 입력<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>매번 그놈 키링 패스워드를 입력해야 한다.</p>
+<section id="id5">
+<h3>해결<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>seahorse 를 설치하고 login 키링에 대해 패스워드를 빈 값으로 변경 한다.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pacman<span class="w"> </span>-Syu<span class="w"> </span>seahorse
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="using-howdy.html" class="btn btn-neutral float-left" title="Howdy 로 인증하기" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="settings-ts9020.html" class="btn btn-neutral float-right" title="캐논 TS9020 잉크젯 프린터 설정하기" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, L4zyG33k.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
