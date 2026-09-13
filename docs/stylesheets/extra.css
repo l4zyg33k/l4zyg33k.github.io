@@ -184,12 +184,35 @@ body, button, input { font-family: "Gothic A1", sans-serif; }
 
 .md-nav__link--active, .md-nav__link:focus, .md-nav__link:hover { color: var(--md-accent-fg-color); }
 
-.md-nav__item .md-nav__link--active {
+.md-sidebar--primary .md-nav--primary > .md-nav__list {
+  padding: 0.55rem 0.3rem 1.25rem;
+}
+
+.md-sidebar--primary .md-nav__link {
+  border-radius: 0.35rem;
+  margin: 0.08rem 0.15rem;
+  padding: 0.35rem 0.5rem;
+}
+
+.md-sidebar--primary .md-nav__link--active {
   background: var(--ux-interactive-soft);
+  border-left: 0.2rem solid var(--ux-interactive);
   border-radius: 0.25rem;
+  color: var(--md-default-fg-color);
   font-weight: 700;
-  margin-left: -0.35rem;
-  padding-left: 0.35rem;
+  padding-left: 0.55rem;
+}
+
+[data-md-color-scheme="slate"] .md-sidebar--primary .md-nav__link--active {
+  background: #4f4f4f;
+  box-shadow: inset 0 0 0 1px #709080;
+  color: #f0dfaf;
+}
+
+[data-md-color-scheme="default"] .md-sidebar--primary .md-nav__link--active {
+  background: #dedbc9;
+  box-shadow: inset 0 0 0 1px #709080;
+  color: #3f3f3f;
 }
 
 .md-search__form { border: 1px solid var(--l4zy-border); border-radius: 0.35rem; }
