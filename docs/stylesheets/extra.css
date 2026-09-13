@@ -219,6 +219,22 @@ body, button, input { font-family: "Gothic A1", sans-serif; }
 .md-search__input { background-color: var(--l4zy-search-bg); }
 .md-search__input:focus { box-shadow: inset 0 0 0 0.1rem var(--ux-interactive); }
 
+[data-md-color-scheme="slate"] .md-search__input {
+  caret-color: var(--ux-interactive);
+  color: #dcdccc;
+}
+
+[data-md-color-scheme="slate"] .md-search__input::placeholder { color: #9fafaf; opacity: 1; }
+
+[data-md-color-scheme="default"] .md-search__input {
+  caret-color: #3f7f7f;
+  color: #3f3f3f;
+}
+
+[data-md-color-scheme="default"] .md-search__input::placeholder { color: #5f5f5f; opacity: 1; }
+
+[data-md-color-scheme="default"] .md-search__icon { color: #3f3f3f; }
+
 .md-typeset .md-tag {
   background: var(--ux-interactive-soft);
   border: 1px solid rgba(147, 224, 227, 0.45);
