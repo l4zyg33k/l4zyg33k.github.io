@@ -7,6 +7,7 @@
 - 새 문서는 반드시 `docs/<카테고리>/<파일명>.md` 경로에 생성한다.
   - 카테고리 예: `archlinux`, `kubernetes`, `devops`, `network`
 - 문서 작성 후 `mkdocs.yml`의 `nav:` 섹션에 해당 문서 링크를 추가한다.
+- `index.md`와 `generated/catalog.md`는 빌드 단계에서 `scripts/generate_navigation.py`가 front matter를 바탕으로 생성한다. 직접 작성하거나 수정하지 않는다.
 
 ## 2. 문서 템플릿
 

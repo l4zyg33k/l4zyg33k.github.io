@@ -123,6 +123,39 @@ body, button, input { font-family: "Gothic A1", sans-serif; }
 
 .md-typeset a:hover { color: var(--l4zy-amber); }
 
+.l4zy-card-grid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  margin: 1.5rem 0 2.25rem;
+}
+
+.l4zy-card {
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--l4zy-border);
+  border-left: 0.25rem solid var(--ux-interactive);
+  border-radius: 0.45rem;
+  color: var(--md-default-fg-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-height: 8rem;
+  padding: 1.15rem;
+  text-decoration: none;
+  transition: background-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.l4zy-card:hover {
+  background: var(--ux-interactive-soft);
+  box-shadow: 0 0.55rem 1.2rem var(--l4zy-header-shadow);
+  color: var(--md-default-fg-color);
+  transform: translateY(-0.15rem);
+}
+
+.l4zy-card span { color: var(--md-accent-fg-color); font-size: 0.78rem; font-weight: 700; }
+.l4zy-card strong { font-size: 1.1rem; }
+.l4zy-card small { color: var(--md-default-fg-color--light); line-height: 1.6; }
+
 .md-typeset code, .md-typeset pre, .md-typeset kbd, .md-typeset .highlight {
   font-family: "JetBrains Mono", monospace;
 }

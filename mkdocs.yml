@@ -28,8 +28,17 @@ theme:
     - content.code.copy
     - content.code.annotate
 plugins:
+  - gen-files:
+      scripts:
+        - scripts/generate_navigation.py
   - search:
-      lang: ko
+      lang:
+        - en
+        - ko
+  - meta-descriptions:
+      quiet: true
+      max_length: 160
+      trim: true
   - tags
   - minify:
       minify_html: true
@@ -42,6 +51,8 @@ plugins:
       cache_safe: true
       htmlmin_opts:
         remove_comments: true
+hooks:
+  - hooks/seo.py
 markdown_extensions:
   - admonition
   - pymdownx.details
@@ -58,6 +69,7 @@ extra_javascript:
 copyright: 'Copyright &copy; 2026 L4zyG33k · <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ko">CC BY-SA 4.0</a>'
 nav:
   - 홈: index.md
+  - 문서 탐색: generated/catalog.md
   - 태그 탐색: tags.md
   - Linux:
       - Arch Linux:
