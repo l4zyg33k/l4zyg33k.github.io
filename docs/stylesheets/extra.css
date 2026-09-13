@@ -152,6 +152,19 @@ body, button, input { font-family: "Gothic A1", sans-serif; }
   transform: translateY(-0.15rem);
 }
 
+.l4zy-card:focus-visible {
+  outline: 0.18rem solid var(--ux-interactive);
+  outline-offset: 0.18rem;
+}
+
+/* The translucent dark-theme hover fill is too close to Zenburn Light's paper.
+   Use an opaque, darker teal-tinted surface so a hovered card is unmistakable. */
+[data-md-color-scheme="default"] .l4zy-card:hover {
+  background: #c9ddd4;
+  border-color: var(--ux-interactive);
+  box-shadow: 0 0.55rem 1.2rem rgba(63, 127, 127, 0.24);
+}
+
 .l4zy-card span { color: var(--md-accent-fg-color); font-size: 0.78rem; font-weight: 700; }
 .l4zy-card strong { font-size: 1.1rem; }
 .l4zy-card small { color: var(--md-default-fg-color--light); line-height: 1.6; }
