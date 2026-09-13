@@ -1,0 +1,76 @@
+site_name: L4zyG33k Cheatsheets
+site_description: Linux and infrastructure cheatsheets
+site_url: https://www.miralove.pe.kr/
+theme:
+  name: material
+  language: ko
+  logo: assets/logo.svg
+  favicon: assets/favicon.svg
+  font:
+    text: Noto Sans KR
+    code: JetBrains Mono
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: 라이트 모드로 전환
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: 다크 모드로 전환
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+plugins:
+  - search:
+      lang: ko
+  - tags
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - https://unpkg.com/mermaid@11/dist/mermaid.min.js
+  - javascripts/mermaid.js
+copyright: 'Copyright &copy; 2026 L4zyG33k · <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ko">CC BY-SA 4.0</a>'
+nav:
+  - 홈: index.md
+  - 태그 탐색: tags.md
+  - Linux:
+      - Arch Linux:
+          - AI / 추론:
+              - OpenVINO Model Server: linux/archlinux/ai/openvino-model-server.md
+          - 데스크톱 / 입력:
+              - fcitx5 한글: linux/archlinux/desktop/fcitx5-hangul.md
+          - 하드웨어:
+              - Lenovo Slim 7i: linux/archlinux/hardware/lenovo-slim-7i.md
+              - Laptop Mode Tools: linux/archlinux/hardware/laptop-mode-tools.md
+              - Canon TS9020: linux/archlinux/hardware/canon-ts9020.md
+              - ddcutil: linux/archlinux/hardware/ddcutil.md
+          - 시스템:
+              - 개인화: linux/archlinux/system/customization.md
+              - 문제 해결: linux/archlinux/system/troubleshooting.md
+          - 보안:
+              - Howdy 얼굴 인증: linux/archlinux/security/howdy.md
+  - Cloud Native:
+      - Kubernetes:
+          - 런타임:
+              - kind on Podman: cloud-native/kubernetes/runtime/kind-on-podman.md
+          - 보안:
+              - CKS 실습 클러스터: cloud-native/kubernetes/security/cks-cluster.md
+          - 개발 툴체인:
+              - kind 개발 툴체인: cloud-native/kubernetes/development/toolchain-on-kind.md

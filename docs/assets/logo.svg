@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 64" role="img" aria-labelledby="title desc">
+  <title id="title">L4zyG33k terminal logo</title>
+  <desc id="desc">A Zenburn-styled terminal window showing the L4zyG33k name.</desc>
+  <style>
+    .terminal-frame { fill: #2b2b2b; stroke: #4f4f4f; stroke-width: 1.5; }
+    .btn-red { fill: #cc9393; }
+    .btn-yellow { fill: #f0dfaf; }
+    .btn-green { fill: #7f9f7f; }
+    .prompt-sign { fill: #dfaf8f; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 16px; font-weight: bold; }
+    .brand-text { fill: #dcdccc; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 17px; font-weight: 700; letter-spacing: -0.5px; }
+    .leet-char { fill: #f0dfaf; }
+    .cursor { fill: #7f9f7f; }
+  </style>
+  <rect x="2" y="2" width="196" height="60" rx="8" class="terminal-frame"/>
+  <circle cx="16" cy="14" r="3.5" class="btn-red"/>
+  <circle cx="28" cy="14" r="3.5" class="btn-yellow"/>
+  <circle cx="40" cy="14" r="3.5" class="btn-green"/>
+  <text x="14" y="45" class="prompt-sign">λ</text>
+  <text x="32" y="45" class="brand-text">l<tspan class="leet-char">4</tspan>zyg<tspan class="leet-char">33</tspan>k</text>
+  <rect x="135" y="32" width="9" height="15" class="cursor">
+    <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+</svg>

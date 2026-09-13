@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">L4zyG33k icon</title>
+  <desc id="desc">A Zenburn-styled terminal icon with the numbers four and three.</desc>
+  <style>
+    .icon-bg { fill: #2f2f2f; stroke: #5f5f5f; stroke-width: 2; }
+    .glyph-lazy { fill: #dfaf8f; font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 900; }
+    .glyph-geek { fill: #7f9f7f; font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 900; }
+    .accent-dot { fill: #f0dfaf; }
+  </style>
+  <rect x="3" y="3" width="58" height="58" rx="14" class="icon-bg"/>
+  <text x="11" y="42" class="glyph-lazy">4</text>
+  <text x="31" y="42" class="glyph-geek">3</text>
+  <circle cx="52" cy="40" r="3" class="accent-dot"/>
+</svg>
