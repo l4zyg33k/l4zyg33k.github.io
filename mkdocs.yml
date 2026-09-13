@@ -7,20 +7,18 @@ theme:
   logo: assets/logo.svg
   favicon: assets/favicon.svg
   font:
-    text: Noto Sans KR
+    text: Gothic A1
     code: JetBrains Mono
   palette:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: blue grey
-      accent: cyan
       toggle:
         icon: material/weather-sunny
         name: 라이트 모드로 전환
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: blue grey
-      accent: cyan
       toggle:
         icon: material/weather-night
         name: 다크 모드로 전환
@@ -33,6 +31,17 @@ plugins:
   - search:
       lang: ko
   - tags
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      css_files:
+        - stylesheets/extra.css
+      js_files:
+        - javascripts/mermaid.js
+      cache_safe: true
+      htmlmin_opts:
+        remove_comments: true
 markdown_extensions:
   - admonition
   - pymdownx.details

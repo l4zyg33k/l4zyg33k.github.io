@@ -1,8 +1,12 @@
 /* Google Fonts are loaded through the Material theme configuration. */
 :root {
-  --l4zy-cyan: #93e0e3;
-  --l4zy-cyan-soft: rgba(147, 224, 227, 0.14);
+  --ux-interactive: #93e0e3;
+  --ux-interactive-soft: rgba(147, 224, 227, 0.14);
+  --ux-success: #7f9f7f;
   --l4zy-amber: #f0dfaf;
+  --ux-danger: #cc9393;
+  --ux-info: #8cd0d3;
+  --ux-emphasis: #dfaf8f;
   --l4zy-slate-950: #3f3f3f;
   --l4zy-slate-900: #2b2b2b;
   --l4zy-slate-800: #4f4f4f;
@@ -16,7 +20,7 @@
   --md-default-fg-color--lighter: #709080;
   --md-code-bg-color: #2b2b2b;
   --md-code-fg-color: #dcdccc;
-  --md-accent-fg-color: var(--l4zy-cyan);
+  --md-accent-fg-color: var(--ux-interactive);
   --md-primary-fg-color: var(--l4zy-slate-900);
   --md-primary-fg-color--light: var(--l4zy-slate-800);
   --l4zy-header-bg: var(--l4zy-slate-900);
@@ -27,6 +31,8 @@
 }
 
 [data-md-color-scheme="default"] {
+  --ux-interactive: #3f7f7f;
+  --ux-interactive-soft: rgba(63, 127, 127, 0.12);
   --md-default-bg-color: #f3f0df;
   --md-default-fg-color: #3f3f3f;
   --md-default-fg-color--light: #5f5f5f;
@@ -34,18 +40,20 @@
   --md-code-bg-color: #e6e3d1;
   --md-code-fg-color: #3f3f3f;
   --md-accent-fg-color: #3f7f7f;
-  --md-primary-fg-color: #e6e3d1;
-  --md-primary-fg-color--light: #d8d5c3;
-  --l4zy-header-bg: #e6e3d1;
-  --l4zy-footer-bg: #dedbc9;
-  --l4zy-footer-meta-bg: #cfccba;
+  --md-primary-fg-color: #4f4f4f;
+  --md-primary-fg-color--light: #5f5f5f;
+  --md-primary-bg-color: #dcdccc;
+  --md-primary-bg-color--light: #f0dfaf;
+  --l4zy-header-bg: #4f4f4f;
+  --l4zy-footer-bg: #4f4f4f;
+  --l4zy-footer-meta-bg: #3f3f3f;
   --l4zy-search-bg: #ffffff;
   --l4zy-header-shadow: rgba(63, 63, 63, 0.14);
 }
 
 html { scroll-behavior: smooth; }
 
-body, button, input { font-family: "Noto Sans KR", sans-serif; }
+body, button, input { font-family: "Gothic A1", sans-serif; }
 
 .md-header, .md-tabs { background: var(--l4zy-header-bg); }
 
@@ -56,7 +64,13 @@ body, button, input { font-family: "Noto Sans KR", sans-serif; }
 
 .md-header__title { font-weight: 700; letter-spacing: -0.02em; }
 .md-tabs { border-bottom: 1px solid var(--l4zy-border); }
-.md-tabs__link--active, .md-tabs__link:hover { color: var(--l4zy-cyan); opacity: 1; }
+.md-tabs__link--active, .md-tabs__link:hover { color: var(--ux-interactive); opacity: 1; }
+
+[data-md-color-scheme="default"] .md-header__title,
+[data-md-color-scheme="default"] .md-header__button,
+[data-md-color-scheme="default"] .md-tabs__link {
+  color: #dcdccc;
+}
 
 .md-header__button.md-logo {
   margin: 0.2rem 0.35rem 0.2rem 0;
@@ -88,14 +102,14 @@ body, button, input { font-family: "Noto Sans KR", sans-serif; }
 }
 
 .md-typeset h1::before {
-  color: var(--l4zy-cyan);
+  color: var(--ux-interactive);
   content: "$ ";
   font-family: "JetBrains Mono", monospace;
   font-weight: 400;
 }
 
 .md-typeset h2 {
-  border-left: 0.2rem solid var(--l4zy-cyan);
+  border-left: 0.2rem solid var(--ux-interactive);
   font-size: 1.35rem;
   margin-top: 2.5rem;
   padding-left: 0.65rem;
@@ -114,7 +128,7 @@ body, button, input { font-family: "Noto Sans KR", sans-serif; }
 }
 
 .md-typeset code {
-  background-color: var(--l4zy-cyan-soft);
+  background-color: var(--ux-interactive-soft);
   border: 1px solid rgba(147, 224, 227, 0.35);
   border-radius: 0.22rem;
   color: var(--md-default-fg-color);
@@ -123,7 +137,7 @@ body, button, input { font-family: "Noto Sans KR", sans-serif; }
 
 .md-typeset pre > code {
   border: 0;
-  border-left: 3px solid var(--l4zy-cyan);
+  border-left: 3px solid var(--ux-interactive);
   border-radius: 0;
   padding: 1.1em 1.2em;
 }
@@ -134,7 +148,7 @@ body, button, input { font-family: "Noto Sans KR", sans-serif; }
   box-shadow: 0 0.7rem 1.6rem rgba(2, 6, 23, 0.12);
 }
 
-.md-clipboard { color: var(--l4zy-cyan); }
+.md-clipboard { color: var(--ux-interactive); }
 
 .md-typeset kbd {
   border-color: var(--l4zy-border);
@@ -147,6 +161,11 @@ body, button, input { font-family: "Noto Sans KR", sans-serif; }
 }
 
 .md-typeset .admonition.warning, .md-typeset details.warning { border-color: var(--l4zy-amber); }
+.md-typeset .admonition.note, .md-typeset details.note { border-color: var(--ux-info); }
+.md-typeset .admonition.tip, .md-typeset details.tip,
+.md-typeset .admonition.success, .md-typeset details.success { border-color: var(--ux-success); }
+.md-typeset .admonition.danger, .md-typeset details.danger,
+.md-typeset .admonition.failure, .md-typeset details.failure { border-color: var(--ux-danger); }
 
 .md-typeset table:not([class]) {
   border: 1px solid var(--l4zy-border);
@@ -156,17 +175,17 @@ body, button, input { font-family: "Noto Sans KR", sans-serif; }
 }
 
 .md-typeset table:not([class]) th {
-  background: var(--l4zy-cyan-soft);
+  background: var(--ux-interactive-soft);
   color: var(--md-default-fg-color);
   font-weight: 700;
 }
 
-.md-typeset table:not([class]) tr:hover { background: var(--l4zy-cyan-soft); }
+.md-typeset table:not([class]) tr:hover { background: var(--ux-interactive-soft); }
 
 .md-nav__link--active, .md-nav__link:focus, .md-nav__link:hover { color: var(--md-accent-fg-color); }
 
 .md-nav__item .md-nav__link--active {
-  background: var(--l4zy-cyan-soft);
+  background: var(--ux-interactive-soft);
   border-radius: 0.25rem;
   font-weight: 700;
   margin-left: -0.35rem;
@@ -175,9 +194,10 @@ body, button, input { font-family: "Noto Sans KR", sans-serif; }
 
 .md-search__form { border: 1px solid var(--l4zy-border); border-radius: 0.35rem; }
 .md-search__input { background-color: var(--l4zy-search-bg); }
+.md-search__input:focus { box-shadow: inset 0 0 0 0.1rem var(--ux-interactive); }
 
 .md-typeset .md-tag {
-  background: var(--l4zy-cyan-soft);
+  background: var(--ux-interactive-soft);
   border: 1px solid rgba(147, 224, 227, 0.45);
   border-radius: 999px;
   color: var(--md-default-fg-color);
@@ -285,6 +305,18 @@ body, button, input { font-family: "Noto Sans KR", sans-serif; }
 
 .md-footer { background: var(--l4zy-footer-bg); border-top: 1px solid var(--l4zy-border); }
 .md-footer-meta { background: var(--l4zy-footer-meta-bg); }
+
+[data-md-color-scheme="default"] .md-footer__link,
+[data-md-color-scheme="default"] .md-footer__title,
+[data-md-color-scheme="default"] .md-footer__direction,
+[data-md-color-scheme="default"] .md-footer-meta,
+[data-md-color-scheme="default"] .md-footer-meta a {
+  color: #dcdccc;
+}
+
+[data-md-color-scheme="default"] .md-footer-meta a:hover {
+  color: var(--ux-interactive);
+}
 
 @media screen and (max-width: 76.2344em) {
   .md-main__inner { margin-top: 1rem; }

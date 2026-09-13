@@ -5,6 +5,7 @@ description = "Linux and infrastructure cheatsheets built with MkDocs"
 requires-python = ">=3.12"
 dependencies = [
   "mkdocs-material==9.6.20",
+  "mkdocs-minify-plugin>=0.8,<0.9",
 ]
 
 [tool.uv]
