@@ -163,6 +163,12 @@ body, button, input { font-family: "Gothic A1", sans-serif; }
   background: #c9ddd4;
   border-color: var(--ux-interactive);
   box-shadow: 0 0.55rem 1.2rem rgba(63, 127, 127, 0.24);
+  color: #2b2b2b;
+}
+
+/* Keep the count legible when the general link-hover color is applied. */
+[data-md-color-scheme="default"] .l4zy-card:hover strong {
+  color: #2b2b2b;
 }
 
 .l4zy-card span { color: var(--md-accent-fg-color); font-size: 0.78rem; font-weight: 700; }

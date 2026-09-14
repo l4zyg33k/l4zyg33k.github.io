@@ -66,6 +66,17 @@ extra_css:
 extra_javascript:
   - https://unpkg.com/mermaid@11/dist/mermaid.min.js
   - javascripts/mermaid.js
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/l4zyg33k/
+      name: LinkedIn 프로필
+    - icon: fontawesome/brands/github
+      link: https://github.com/l4zyg33k
+      name: GitHub 프로필
+    - icon: material/account-circle
+      link: https://gravatar.com/l4zyg33k
+      name: Gravatar 프로필
 copyright: 'Copyright &copy; 2026 L4zyG33k · <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ko">CC BY-SA 4.0</a>'
 nav:
   - 홈: index.md
