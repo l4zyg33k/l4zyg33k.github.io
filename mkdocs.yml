@@ -96,6 +96,7 @@ nav:
               - 문제 해결: linux/archlinux/system/troubleshooting.md
           - 보안:
               - Howdy 얼굴 인증: linux/archlinux/security/howdy.md
+              - 리드 상태 기반 Visage 카메라 전환: linux/archlinux/security/visage-lid-camera-switch.md
   - Cloud Native:
       - Kubernetes:
           - 런타임:
