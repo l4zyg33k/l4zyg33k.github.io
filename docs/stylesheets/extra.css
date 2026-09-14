@@ -157,18 +157,27 @@ body, button, input { font-family: "Gothic A1", sans-serif; }
   outline-offset: 0.18rem;
 }
 
-/* The translucent dark-theme hover fill is too close to Zenburn Light's paper.
-   Use an opaque, darker teal-tinted surface so a hovered card is unmistakable. */
+/* Keep hover-state contrast comparable across Zenburn's dark and light surfaces. */
+[data-md-color-scheme="slate"] .l4zy-card:hover {
+  background: #465250;
+  border-color: var(--ux-interactive);
+  box-shadow: 0 0.55rem 1.2rem rgba(0, 0, 0, 0.4);
+}
+
 [data-md-color-scheme="default"] .l4zy-card:hover {
-  background: #c9ddd4;
+  background: #b8cec3;
   border-color: var(--ux-interactive);
   box-shadow: 0 0.55rem 1.2rem rgba(63, 127, 127, 0.24);
   color: #2b2b2b;
 }
 
-/* Keep the count legible when the general link-hover color is applied. */
+/* Keep the card count legible when the general link-hover color is applied. */
 [data-md-color-scheme="default"] .l4zy-card:hover strong {
   color: #2b2b2b;
+}
+
+[data-md-color-scheme="default"] .l4zy-card:hover span {
+  color: #2f6262;
 }
 
 .l4zy-card span { color: var(--md-accent-fg-color); font-size: 0.78rem; font-weight: 700; }
@@ -235,6 +244,13 @@ body, button, input { font-family: "Gothic A1", sans-serif; }
 .md-typeset table:not([class]) tr:hover { background: var(--ux-interactive-soft); }
 
 .md-nav__link--active, .md-nav__link:focus, .md-nav__link:hover { color: var(--md-accent-fg-color); }
+
+/* Keep the table of contents on the Zenburn interaction color. */
+.md-nav--secondary .md-nav__link--active,
+.md-nav--secondary .md-nav__link:focus,
+.md-nav--secondary .md-nav__link:hover {
+  color: var(--ux-interactive);
+}
 
 .md-sidebar--primary .md-nav--primary > .md-nav__list {
   padding: 0.55rem 0.3rem 1.25rem;
