@@ -13,6 +13,7 @@ DOCS = ROOT / "docs"
 EXCLUDED = {"index.md", "tags.md"}
 
 PLATFORM_NAMES = {
+    "platform/development/python": "Software Development / Python",
     "platform/linux/arch-linux": "Linux / Arch Linux",
     "platform/cloud-native/kubernetes": "Cloud Native / Kubernetes",
 }
@@ -22,6 +23,7 @@ DOMAIN_NAMES = {
     "domain/cloud-native/runtime": "런타임",
     "domain/desktop/input": "데스크톱 / 입력",
     "domain/development/toolchain": "개발 툴체인",
+    "domain/development/automation": "자동화",
     "domain/hardware/display": "하드웨어 / 디스플레이",
     "domain/hardware/laptop": "하드웨어 / 랩탑",
     "domain/hardware/power": "하드웨어 / 전원",

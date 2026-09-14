@@ -104,3 +104,6 @@ nav:
               - CKS 실습 클러스터: cloud-native/kubernetes/security/cks-cluster.md
           - 개발 툴체인:
               - kind 개발 툴체인: cloud-native/kubernetes/development/toolchain-on-kind.md
+  - Software Development:
+      - Python:
+          - Spotify와 YouTube Music 선곡 상호보완 설계: development/python/spotify-youtube-music-recommendation.md
