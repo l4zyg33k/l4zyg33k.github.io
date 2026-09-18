@@ -251,41 +251,196 @@ for _ in range(35):
 
 `~/bin/hyprmux-stop`
 
-세션을 종료하고 개인 브라우저는 건드리지 않은 채 hyprmux 전용 프로세스와 포트를 안전하게 정리합니다. 실행 권한(`chmod +x`)을 부여합니다.
+세션을 생성 역순으로 안전하게 종료하고, 인플레이스 전환된 터미널을 원래 상태로 복원합니다. 개인 브라우저는 건드리지 않은 채 hyprmux 전용 프로세스와 포트만 정리합니다. 실행 권한(`chmod +x`)을 부여합니다.
 
 ```bash
 #!/usr/bin/env bash
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
-KITTY_SOCK="/tmp/hyprmux.sock"
-CDP_PORT=9222
-
-# 1. Kitty 세션 정상 종료
-if [ -S "${KITTY_SOCK}" ]; then
-    kitty @ --to="unix:${KITTY_SOCK}" quit >/dev/null 2>&1 || true
-    sleep 0.2
+# 중복/경합 실행 방지 (flock 뮤텍스 락)
+LOCK_FILE="/tmp/hyprmux-stop.lock"
+exec 200>"${LOCK_FILE}"
+if ! flock -n 200; then
+    exit 0
 fi
 
-# 2. hyprmux 전용 Chromium 프로세스만 종료 (개인 브라우저 보존)
+CDP_PORT=9222
+ACTIVE_WS=$(hyprctl activeworkspace -j 2>/dev/null | jq -r '.id // 1')
+STATE_FILE="/tmp/hyprmux_ws${ACTIVE_WS}.state"
+[ ! -f "${STATE_FILE}" ] && STATE_FILE="/tmp/hyprmux.state"
+
+MODE="inplace"
+ORIG_WINDOW_ID=""
+ORIG_TITLE=""
+ORIG_LAYOUT=""
+KITTY_SOCK=""
+KITTY_PID=""
+
+HAD_STATE=false
+if [ -f "${STATE_FILE}" ]; then
+    HAD_STATE=true
+    source "${STATE_FILE}"
+fi
+
+CHANGED=false
+
+# 1. Hyprland 탭 그룹 해제
+UNGROUPED=$(python3 -c '
+import json, subprocess, time
+
+try:
+    ws_raw = subprocess.check_output(["hyprctl", "activeworkspace", "-j"], stderr=subprocess.DEVNULL).decode("utf-8")
+    active_ws = json.loads(ws_raw).get("id", 1)
+except Exception:
+    active_ws = 1
+
+try:
+    clients = json.loads(subprocess.check_output(["hyprctl", "clients", "-j"], stderr=subprocess.DEVNULL).decode("utf-8"))
+except Exception:
+    clients = []
+
+ws_kitties = [c for c in clients if c.get("class") == "kitty" and c.get("workspace", {}).get("id") == active_ws]
+if not ws_kitties:
+    ws_kitties = [c for c in clients if c.get("class") == "kitty"]
+
+ungrouped = False
+for k in ws_kitties:
+    if k.get("grouped"):
+        k_addr = k.get("address")
+        subprocess.run(["hyprctl", "dispatch", f"hl.dsp.focus({{ window = \"address:{k_addr}\" }})"], stdout=subprocess.DEVNULL)
+        subprocess.run(["hyprctl", "dispatch", "hl.dsp.group.toggle()"], stdout=subprocess.DEVNULL)
+        ungrouped = True
+        time.sleep(0.08)
+
+if ungrouped:
+    print("yes")
+' 2>/dev/null || true)
+
+[ "${UNGROUPED}" = "yes" ] && CHANGED=true
+
+# 2. hyprmux 전용 Chromium 및 CDP 포트 정리
+CHROME_PIDS=()
 for pid in $(pgrep -f "chromium" 2>/dev/null); do
     if [ -f "/proc/${pid}/cmdline" ]; then
         cmd=$(tr '\0' ' ' < "/proc/${pid}/cmdline" 2>/dev/null || true)
         if echo "${cmd}" | grep -q "chromium-hyprmux"; then
-            kill -TERM "${pid}" 2>/dev/null || true
+            CHROME_PIDS+=("${pid}")
         fi
     fi
 done
 
-# 3. 디버깅 포트 및 소켓 해제
-fuser -k "${CDP_PORT}/tcp" >/dev/null 2>&1 || true
-rm -f "${KITTY_SOCK}"
+if [ ${#CHROME_PIDS[@]} -gt 0 ]; then
+    kill -TERM "${CHROME_PIDS[@]}" 2>/dev/null || true
+    sleep 0.15
+    for pid in "${CHROME_PIDS[@]}"; do
+        if kill -0 "${pid}" 2>/dev/null; then
+            kill -KILL "${pid}" 2>/dev/null || true
+        fi
+    done
+    CHANGED=true
+fi
 
-# 4. Hyprland 알림
-if command -v hyprctl >/dev/null 2>&1; then
-    hyprctl notify 1 2000 "rgb(93e0e3)" "hyprmux: All Daemons Stopped" >/dev/null 2>&1 || true
+if command -v systemctl >/dev/null 2>&1; then
+    if systemctl --user is-active chromium-hyprmux >/dev/null 2>&1; then
+        systemctl --user stop chromium-hyprmux >/dev/null 2>&1 || true
+        CHANGED=true
+    fi
+    systemctl --user reset-failed chromium-hyprmux >/dev/null 2>&1 || true
+fi
+
+if command -v fuser >/dev/null 2>&1; then
+    if fuser "${CDP_PORT}/tcp" >/dev/null 2>&1; then
+        fuser -k "${CDP_PORT}/tcp" >/dev/null 2>&1 || true
+        CHANGED=true
+    fi
+fi
+
+# 3. Kitty 소켓 탐색 및 역순 창 정리 (Yazi -> Lazygit -> 원래 터미널 복구)
+find_kitty_sockets() {
+    local sockets=()
+    if [ -n "${KITTY_SOCK}" ] && [ -S "${KITTY_SOCK#unix:}" ]; then
+        sockets+=("${KITTY_SOCK}")
+    fi
+    local client_pids
+    client_pids=$(hyprctl clients -j 2>/dev/null | jq -r --argjson ws "${ACTIVE_WS}" '.[] | select(.class == "kitty" and .workspace.id == $ws) | .pid' 2>/dev/null || true)
+    for p in ${client_pids}; do
+        [ -S "/tmp/hyprmux.sock-${p}" ] && sockets+=("unix:/tmp/hyprmux.sock-${p}")
+    done
+    [ -S "/tmp/hyprmux.sock" ] && sockets+=("unix:/tmp/hyprmux.sock")
+    for s in /tmp/hyprmux.sock-*; do
+        [ -S "${s}" ] && sockets+=("unix:${s}")
+    done
+    printf '%s\n' "${sockets[@]}" | sort -u
+}
+
+while IFS= read -r sock; do
+    [ -z "${sock}" ] && continue
+    ALL_TITLES=$(kitty @ --to="${sock}" ls 2>/dev/null | jq -r '.[].tabs[].windows[] | .title' 2>/dev/null || true)
+    [ -z "${ALL_TITLES}" ] && continue
+
+    if echo "${ALL_TITLES}" | grep -qE '^(YAZI|LAZYGIT|AGENT)$'; then
+        # 역순 1: Yazi 패널 닫기 (가장 마지막에 생성됨)
+        if echo "${ALL_TITLES}" | grep -q "^YAZI$"; then
+            kitty @ --to="${sock}" close-window --match="title:^YAZI$" --ignore-no-match 2>/dev/null || true
+            CHANGED=true
+            sleep 0.05
+        fi
+
+        # 역순 2: Lazygit 패널 닫기
+        if echo "${ALL_TITLES}" | grep -q "^LAZYGIT$"; then
+            kitty @ --to="${sock}" close-window --match="title:^LAZYGIT$" --ignore-no-match 2>/dev/null || true
+            CHANGED=true
+            sleep 0.05
+        fi
+
+        # 역순 3: 원래 터미널 상태로 복원
+        IS_STANDALONE=false
+        [ "${MODE}" = "standalone" ] && IS_STANDALONE=true
+        KPID=$(basename "${sock}" | sed 's/hyprmux\.sock-//')
+        if [ -f "/proc/${KPID}/cmdline" ] && grep -q "hyprmux\.session" "/proc/${KPID}/cmdline" 2>/dev/null; then
+            IS_STANDALONE=true
+        fi
+
+        if [ "${IS_STANDALONE}" = true ]; then
+            kitty @ --to="${sock}" close-window --match="title:^AGENT$" --ignore-no-match 2>/dev/null || true
+            kitty @ --to="${sock}" quit 2>/dev/null || true
+            systemctl --user stop kitty-hyprmux >/dev/null 2>&1 || true
+            rm -f "${sock#unix:}" 2>/dev/null || true
+            CHANGED=true
+        else
+            if echo "${ALL_TITLES}" | grep -q "^AGENT$"; then
+                if [ -n "${ORIG_WINDOW_ID}" ]; then
+                    kitty @ --to="${sock}" focus-window --match="id:${ORIG_WINDOW_ID}" 2>/dev/null || true
+                else
+                    kitty @ --to="${sock}" focus-window --match="title:^AGENT$" 2>/dev/null || true
+                fi
+
+                if [ -n "${ORIG_TITLE}" ] && [ "${ORIG_TITLE}" != "AGENT" ]; then
+                    kitty @ --to="${sock}" set-window-title --match="title:^AGENT$" "${ORIG_TITLE}" 2>/dev/null || true
+                else
+                    kitty @ --to="${sock}" set-window-title --match="title:^AGENT$" "" 2>/dev/null || true
+                fi
+
+                if [ -n "${ORIG_LAYOUT}" ] && [ "${ORIG_LAYOUT}" != "splits" ]; then
+                    kitty @ --to="${sock}" goto-layout "${ORIG_LAYOUT}" 2>/dev/null || true
+                fi
+                CHANGED=true
+            fi
+        fi
+    fi
+done < <(find_kitty_sockets)
+
+if [ "${HAD_STATE}" = true ] || [ -f "/tmp/hyprmux_ws${ACTIVE_WS}.state" ] || [ -f "/tmp/hyprmux.state" ]; then
+    rm -f "/tmp/hyprmux_ws${ACTIVE_WS}.state" "/tmp/hyprmux.state" 2>/dev/null || true
+    CHANGED=true
+fi
+
+if [ "${CHANGED}" = true ]; then
+    if command -v hyprctl >/dev/null 2>&1; then
+        hyprctl notify 1 2000 "rgb(93e0e3)" "hyprmux: Reverted to Original Terminal" >/dev/null 2>&1 || true
+    fi
 fi
 ```
-
 `~/.config/hypr/hyprland.conf`
 
 Hyprland에서 탭 그룹 창을 손쉽게 전환할 수 있도록 키바인딩을 지정합니다.
@@ -370,7 +525,7 @@ with sync_playwright() as p:
 | `$mainMod + Shift + Tab` | `hl.dsp.group.prev()` | 탭 그룹 내 이전 창으로 역방향 순환 |
 | `$mainMod + G` | `hl.dsp.group.toggle()` | 활성 창 탭 그룹 결합 또는 그룹 해제 |
 | `$mainMod + Shift + G` | `hl.dsp.window.move({ into_group = "left" })` | 현재 창을 왼쪽 탭 그룹으로 강제 편입 |
-| `$mainMod + Shift + D` | `exec, hyprmux-stop` | **hyprmux 세션 전체 종료** (Chromium CDP, 소켓, 프로세스 정리) |
+| `$mainMod + Shift + D` | `exec, hyprmux-stop` | **hyprmux 역순 종료 및 원래 터미널 복귀** (Yazi/Lazygit 역순 닫기, 터미널 복원, 탭 그룹 해제, Chromium CDP 종료) |
 | `$mainMod + H / J / K / L` | `hl.dsp.focus({ direction = ... })` | Vim 스타일 활성 윈도우 포커스 이동 (좌 / 하 / 상 / 우) |
 | `$mainMod + F` | `hl.dsp.window.fullscreen()` | 활성 창 전체 화면 토글 |
 | `$mainMod + Space` | `hl.dsp.window.float()` | 타일링 / 플로팅 윈도우 전환 토글 |
@@ -409,15 +564,18 @@ with sync_playwright() as p:
 | | `.` (마침표) | 숨김 파일(Hidden files) 표시 토글 |
 | | `q` | Yazi 종료 |
 
-### 3.5 세션 종료 및 정리
+### 3.5 세션 종료 및 원래 터미널 복귀
 
-개발 작업을 마치면 단일 명령으로 hyprmux 관련 프로세스만 안전하게 정리합니다.
+개발 작업을 마치면 단일 명령(`hyprmux stop` 또는 `$mainMod + Shift + D`)으로 hyprmux 관련 프로세스 및 분할 패널을 생성 역순으로 안전하게 정리합니다.
 
 ```shell
 hyprmux stop
 ```
 
-실행 중인 개인 브라우저 프로세스는 건드리지 않고, `/tmp/hyprmux.sock` 소켓, 9222 CDP 포트, hyprmux 전용 Chromium 인스턴스만 종료한 후 Hyprland 데스크톱 알림을 띄웁니다.
+1. **Hyprland 탭 그룹 해제**: Kitty와 Chromium의 탭 그룹을 해제하여 Kitty를 본래의 독립 타일링 윈도우로 분리합니다.
+2. **Chromium 및 디버깅 포트 종료**: 개인 브라우저는 보존한 채 전용 Chromium(`~/.config/chromium-hyprmux`)과 9222 CDP 포트만 안전하게 종료합니다.
+3. **Kitty 분할 패널 역순 닫기**: 가장 마지막에 생성된 `YAZI` 패널을 먼저 닫고, 이어서 `LAZYGIT` 패널을 닫습니다.
+4. **원래 터미널 복원**: 인플레이스 전환 모드였던 경우 기존 메인 쉘(`AGENT`) 창을 닫지 않고 타이틀과 레이아웃을 본래 상태로 복원하며 포커스를 맞춥니다. (신규 독립 세션 모드였던 경우 전체 세션을 깔끔하게 종료합니다.)
 
 ## 4. 트러블슈팅
 
