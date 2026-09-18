@@ -168,12 +168,12 @@ body, button, input { font-family: "Gothic A1", sans-serif; }
   background: #d2e0d4;
   border-color: var(--ux-interactive);
   box-shadow: 0 0.55rem 1.2rem rgba(63, 127, 127, 0.18);
-  color: #2b2b2b;
+  color: var(--md-default-fg-color);
 }
 
-/* Keep the card count legible when the general link-hover color is applied. */
+/* Keep the card count legible and accented when hovered. */
 [data-md-color-scheme="default"] .l4zy-card:hover strong {
-  color: #2b2b2b;
+  color: var(--ux-interactive);
 }
 
 [data-md-color-scheme="default"] .l4zy-card:hover span {
