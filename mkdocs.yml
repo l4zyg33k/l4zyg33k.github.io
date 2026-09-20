@@ -84,8 +84,10 @@ nav:
       - Arch Linux:
           - AI / 추론:
               - OpenVINO Model Server: linux/archlinux/ai/openvino-model-server.md
-          - 데스크톱 / 입력:
+          - 데스크톱:
               - fcitx5 한글: linux/archlinux/desktop/fcitx5-hangul.md
+              - Noctalia 데스크톱 셸: linux/archlinux/desktop/noctalia-shell.md
+              - Matugen 테마 파이프라인: linux/archlinux/desktop/matugen-theme-pipeline.md
           - 하드웨어:
               - Lenovo Slim 7i: linux/archlinux/hardware/lenovo-slim-7i.md
               - Laptop Mode Tools: linux/archlinux/hardware/laptop-mode-tools.md
