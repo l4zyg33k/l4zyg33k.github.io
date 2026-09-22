@@ -8,3 +8,5 @@
 - `component/…`: 핵심 도구 또는 구성 요소
 
 각 태그의 `/`는 상위에서 하위로 내려가는 제어 어휘를 뜻합니다. 예를 들어 `domain/hardware/display`는 하드웨어 영역의 디스플레이 주제입니다.
+
+<!-- material/tags -->

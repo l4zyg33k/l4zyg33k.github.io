@@ -88,6 +88,7 @@ nav:
               - fcitx5 한글: linux/archlinux/desktop/fcitx5-hangul.md
               - Noctalia 데스크톱 셸: linux/archlinux/desktop/noctalia-shell.md
               - Matugen 테마 파이프라인: linux/archlinux/desktop/matugen-theme-pipeline.md
+              - Material Color Utilities 색상 시스템: linux/archlinux/desktop/mutazen-design.md
           - 하드웨어:
               - Lenovo Slim 7i: linux/archlinux/hardware/lenovo-slim-7i.md
               - Laptop Mode Tools: linux/archlinux/hardware/laptop-mode-tools.md
