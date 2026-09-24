@@ -100,6 +100,7 @@ nav:
           - 보안:
               - Howdy 얼굴 인증: linux/archlinux/security/howdy.md
               - 리드 상태 기반 Visage 카메라 전환: linux/archlinux/security/visage-lid-camera-switch.md
+              - Visage와 pass-secret-service 인증 저장소: linux/archlinux/security/visage-pass-secret-service.md
           - 개발 툴체인:
               - Hyprland cmux 대안 환경: linux/archlinux/development/hyprmux.md
   - Cloud Native:
