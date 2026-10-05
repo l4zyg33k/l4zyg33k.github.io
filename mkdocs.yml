@@ -89,6 +89,7 @@ nav:
               - Noctalia 데스크톱 셸: linux/archlinux/desktop/noctalia-shell.md
               - Matugen 테마 파이프라인: linux/archlinux/desktop/matugen-theme-pipeline.md
               - Material Color Utilities 색상 시스템: linux/archlinux/desktop/mutazen-design.md
+              - 한영 조화 및 개발 폰트: linux/archlinux/desktop/font-harmony.md
           - 하드웨어:
               - Lenovo Slim 7i: linux/archlinux/hardware/lenovo-slim-7i.md
               - Laptop Mode Tools: linux/archlinux/hardware/laptop-mode-tools.md
@@ -101,6 +102,7 @@ nav:
               - Howdy 얼굴 인증: linux/archlinux/security/howdy.md
               - 리드 상태 기반 Visage 카메라 전환: linux/archlinux/security/visage-lid-camera-switch.md
               - Visage와 pass-secret-service 인증 저장소: linux/archlinux/security/visage-pass-secret-service.md
+              - Facelock 온디맨드 안면 인증: linux/archlinux/security/facelock.md
           - 개발 툴체인:
               - Hyprland cmux 대안 환경: linux/archlinux/development/hyprmux.md
   - Cloud Native:
